@@ -9,7 +9,7 @@ import java.sql.Date
 data class PersonaRoom(
 
     @ColumnInfo(name = "fecha_corte")
-    val fecha_corte : Date,
+    val fecha_corte : String,
     @ColumnInfo(name = "departamento")
     val departamento : String,
     @ColumnInfo(name = "provincia")
