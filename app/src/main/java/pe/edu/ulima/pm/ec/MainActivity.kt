@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -20,7 +21,6 @@ class MainActivity : AppCompatActivity() {
 
     private val fragmentMain = MainFragment()
     private val fragmentPersona = PersonaFragment()
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
