@@ -16,7 +16,6 @@ import java.net.URL
 
 class GestorPersona {
 
-    @RequiresApi(Build.VERSION_CODES.N)
     fun obtenerListaPersonasCorutina(pBar: ProgressBar?) : List<String> {
 
         val url = URL("https://files.minsa.gob.pe/s/eRqxR35ZCxrzNgr/download")
@@ -28,20 +27,20 @@ class GestorPersona {
         var data=""
 
         //while(br.readLine()!=null){
-        while(cont<50){
+        while(cont<400){
             data=br.readLine()
             resultado.add(data)
             cont++
-            if (cont%20000==0){
+            if (cont%40000==0){
             pBar?.incrementProgressBy(1)
                 Log.d("detail", data)}
 
         }
-        pBar?.setProgress(100, true)
         return resultado
     }
 
-    fun guardarListaPersonasRoom(context : Context, persona : List<String>) {
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun guardarListaPersonasRoom(context : Context, persona : List<String>, pBar: ProgressBar?) {
         val db = AppDatabase.getInstance(
             context)
         val daoPersona : PersonaRoomDAO = db.getPersonaRoomDAO()
@@ -51,8 +50,8 @@ class GestorPersona {
         persona.forEach {
             var result= it.split(";").map{it.trim()}
             cont++
-            var fecha= result[0].substring(6,8)+"-"+result[0].substring(4,6)+"-"+result[0].substring(0,4)
-            daoPersona.insert(
+            var fecha= result[0].substring(6,8)+"/"+result[0].substring(4,6)+"/"+result[0].substring(0,4)
+             daoPersona.insert(
                 PersonaRoom(
                     fecha,
                     result[1],
@@ -60,14 +59,17 @@ class GestorPersona {
                     result[3],
                     result[9],0)
             )
-            Log.d("result",fecha)
-
+            if(cont%1000==0){
+                pBar?.incrementProgressBy(1)
+                Log.d("result",fecha + " " + cont.toString())
+            }
         }
+
+        pBar?.setProgress(100, true)
 
         val editor = context.getSharedPreferences(Constantes.NOMBRE_SP, Context.MODE_PRIVATE).edit()
         editor.putString(Constantes.SP_ESTA_SINCRONIZADO, "SINCRONIZADO")
         editor.commit()
-
 
         Log.d("save", "Se guardó "+cont)
 
@@ -77,9 +79,9 @@ class GestorPersona {
         val daoPersona : PersonaRoomDAO = db.getPersonaRoomDAO()
         val listaPersonas = daoPersona.getAll()
 
-
         return listaPersonas
     }
+
     fun eliminarListaPersonas(context : Context, Persona: List<PersonaRoom>){
         val db = AppDatabase.getInstance(context)
         val daoPersona : PersonaRoomDAO = db.getPersonaRoomDAO()
@@ -87,15 +89,11 @@ class GestorPersona {
             val idpost=daoPersona.findById(it.id)
             daoPersona.delete(idpost)
         }
-
-
-
     }
 
     fun obtenerListaPersonasRoom (context : Context,fecha :String) : List<Persona> {
         val daoPersona : PersonaRoomDAO = AppDatabase.getInstance(
             context).getPersonaRoomDAO()
-
 
         val listaPersonasRoom = daoPersona.PorDepa(fecha) // consulta Room
         println(listaPersonasRoom.size)
@@ -104,7 +102,5 @@ class GestorPersona {
         }
         return listaPlanetas
     }
-
-
 
 }

@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -44,7 +45,7 @@ class MainFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var pBar = view?.findViewById<ProgressBar>(R.id.progressBar)
+        val pBar = view.findViewById<ProgressBar>(R.id.progressBar)
         val bData= view.findViewById<Button>(R.id.butData)
         val butSinc= view.findViewById<Button>(R.id.butSinc)
         val butLimpiar = view.findViewById<Button>(R.id.butLimpiar)
@@ -53,11 +54,9 @@ class MainFragment: Fragment() {
             val ft= this.parentFragmentManager.beginTransaction()
             ft.replace(R.id.fcvFragments, fragmentPersona)
             ft.commit()
-            pBar?.visibility = View.INVISIBLE
         }
 
         butSinc.setOnClickListener{
-            //DESACTIVAR BOTON
             butSinc.isEnabled=false
             pBar.visibility = View.VISIBLE
             SincronizarData()
@@ -71,7 +70,6 @@ class MainFragment: Fragment() {
             pBar?.visibility = View.INVISIBLE
             butSinc.isEnabled=true
 
-
         }
 
     }
@@ -84,7 +82,7 @@ class MainFragment: Fragment() {
     private fun SincronizarData(){
         //ObtenerListaPersonas
 
-        var pBar = view?.findViewById<ProgressBar>(R.id.progressBar)
+        val pBar = view?.findViewById<ProgressBar>(R.id.progressBar)
 
         GlobalScope.launch(Dispatchers.Main) {
             pBar?.incrementProgressBy(1)
@@ -95,8 +93,10 @@ class MainFragment: Fragment() {
         //Guardar Lista
             GestorPersona().guardarListaPersonasRoom(
                 requireActivity().applicationContext,
-                lista
-            )
+                lista, pBar)
+
+            Toast.makeText(getActivity(),"Listo!",Toast.LENGTH_SHORT).show()
+
          }
 
         }
