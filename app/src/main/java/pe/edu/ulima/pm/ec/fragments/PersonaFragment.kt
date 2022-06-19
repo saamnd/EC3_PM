@@ -3,6 +3,7 @@ package pe.edu.ulima.pm.ec.fragments
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import pe.edu.ulima.pm.ec.models.GestorPersona
@@ -28,16 +29,23 @@ class PersonaFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //Si no existe la BD
+                //pedir sincronización
+                //Si existe
 
         mRviPersonas = view.findViewById(R.id.rviPersonas)
+        var fecha= "17-06-2022"
+        val etFecha= view.findViewById<EditText>(R.id.EtFecha)/*
 
-        //Si no existe la BD
-            //pedir sincronización
-        //Si existe
-        var lista : List<Persona> = mutableListOf()
-        lista = GestorPersona().obtenerListaPersonasRoom(
-            requireContext().applicationContext)
+        etFecha.setOnClickListener{*/
+            var lista : List<Persona> = mutableListOf()
+            lista = GestorPersona().obtenerListaPersonasRoom(
+                requireContext().applicationContext, fecha)
             cargarListaDepartamentos(lista)
+        //}
+
+
+
     }
 
     private fun cargarListaDepartamentos(lista: List<Persona>) {

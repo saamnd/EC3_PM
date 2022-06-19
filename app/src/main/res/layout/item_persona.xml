@@ -6,7 +6,9 @@
     android:layout_height="100dp">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+
+            >
 
             <TextView
                 android:id="@+id/tviDepartamento"
@@ -14,7 +16,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="TextView"
-                android:textSize="30sp"/>
+                android:textSize="24sp"
+                android:gravity="center"
+                android:textAlignment="center"/>
 
             <TextView
                 android:id="@+id/tviCount"
@@ -22,7 +26,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="TextView"
-                android:textSize="30sp"/>
+                android:textSize="24sp"
+                android:gravity="center"
+                android:textAlignment="center"/>
 
         </LinearLayout>
 
