@@ -58,10 +58,24 @@ class MainFragment: Fragment() {
             //DESACTIVAR BOTON
             butSinc.isEnabled=false
             SincronizarData()
+        }
+        val butLimpiar = view.findViewById<Button>(R.id.butLimpiar)
+        butLimpiar.setOnClickListener {
+            var pBar = view?.findViewById<ProgressBar>(R.id.progressBar)
+            EliminarData()
+
+            pBar?.setProgress(0)
+            butSinc.isEnabled=true
+
 
         }
 
     }
+    private fun EliminarData(){
+        val ListPersonas = GestorPersona().obtenerListaPersonas(requireActivity().applicationContext)
+        GestorPersona().eliminarListaPersonas(requireActivity().applicationContext,ListPersonas)
+    }
+
     @RequiresApi(Build.VERSION_CODES.N)
     private fun SincronizarData(){
         //ObtenerListaPersonas
