@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import pe.edu.ulima.pm.ec.models.GestorPersona
 import kotlinx.coroutines.*
 import pe.edu.ulima.pm.ec.R
+import pe.edu.ulima.pm.ec.models.beans.Persona
 import pe.edu.ulima.pm.ec.room.AppDatabase
 import pe.edu.ulima.pm.ec.room.dao.PersonaRoomDAO
 import pe.edu.ulima.pm.ec.room.models.PersonaRoom
@@ -52,30 +53,23 @@ class MainFragment: Fragment() {
     private fun SincronizarData(){
         //ObtenerListaPersonas
         GlobalScope.launch(Dispatchers.Main) {
-            val url = URL("https://files.minsa.gob.pe/s/eRqxR35ZCxrzNgr/download")
-            val con = url.openConnection() as HttpURLConnection
-            var datas="not yet"
-            Log.d("Detail_Carga","auuuun")
-            withContext(Dispatchers.IO){
-                var br=con.inputStream.bufferedReader()
-                while(br.readLine()!=null){
-                    datas=br.readLine()
-                    var result = datas.split(";").map { it.trim() }
-                    //Insertar en BD
-                    Log.d("Detail_Carga",datas)
 
-                    val db = AppDatabase.getInstance(requireActivity().applicationContext)
-                    val daoPersona: PersonaRoomDAO =db.getPersonaRoomDAO()
+            var lista:List<String> = mutableListOf()
+            lista= withContext(Dispatchers.IO){
+                GestorPersona().obtenerListaPersonasCorutina()
 
-                    daoPersona.insert(
-                        PersonaRoom(result[0],result[1],result[2],result[3],result[4],result[5].toInt())
-                    )
                 }
 
-            }
+
+            GestorPersona().guardarListaPersonasRoom(
+                requireActivity().applicationContext,
+                lista
+            )
+
 
             //DESACTIVAR BIOTON
+         }
         }
-    }
+
 
 }
