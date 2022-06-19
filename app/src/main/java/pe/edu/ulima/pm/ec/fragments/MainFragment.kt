@@ -69,7 +69,7 @@ class MainFragment: Fragment() {
             var lista:List<String> = mutableListOf()
             lista= withContext(Dispatchers.IO){
                 GestorPersona().obtenerListaPersonasCorutina()
-                lista
+
                 }
         //Guardar Lista
             GestorPersona().guardarListaPersonasRoom(

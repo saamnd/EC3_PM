@@ -4,6 +4,8 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import pe.edu.ulima.pm.ec.models.beans.Persona
+import pe.edu.ulima.pm.ec.room.models.DepartamentoRoom
 import pe.edu.ulima.pm.ec.room.models.PersonaRoom
 
 @Dao
@@ -13,6 +15,9 @@ interface PersonaRoomDAO {
 
     @Query("SELECT * FROM PersonaRoom WHERE id=:id")
     fun findById(id : Int) : PersonaRoom
+
+    @Query("SELECT departamento, count(*) as cantidad FROM PersonaRoom WHERE fecha_corte=:fecha_corte GROUP BY DEPARTAMENTO")
+    fun PorDepa(fecha_corte:String) : List<DepartamentoRoom>
 
     @Insert
     fun insert(persona : PersonaRoom)
