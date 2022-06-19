@@ -23,10 +23,4 @@ class PersonaFragment: Fragment() {
         return inflater.inflate(R.layout.fragment_personas, container, false)
     }
 
-
-
-
-
-
-
 }
