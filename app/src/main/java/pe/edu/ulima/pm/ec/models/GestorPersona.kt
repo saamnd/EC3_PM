@@ -92,14 +92,15 @@ class GestorPersona {
 
     }
 
-    fun obtenerListaPersonasRoom (context : Context) : List<Persona> {
+    fun obtenerListaPersonasRoom (context : Context,fecha :String) : List<Persona> {
         val daoPersona : PersonaRoomDAO = AppDatabase.getInstance(
             context).getPersonaRoomDAO()
-        val fecha_ej="17-06-2022"
-        val listaPersonasRoom = daoPersona.PorDepa(fecha_ej) // consulta Room
+
+
+        val listaPersonasRoom = daoPersona.PorDepa(fecha) // consulta Room
         println(listaPersonasRoom.size)
         val listaPlanetas = listaPersonasRoom.map {
-            Persona(fecha_ej,it.cantidad,it.departamento)
+            Persona(fecha,it.cantidad,it.departamento)
         }
         return listaPlanetas
     }
