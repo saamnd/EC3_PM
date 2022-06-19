@@ -89,9 +89,12 @@ class GestorPersona {
         val db = AppDatabase.getInstance(context)
         val daoPersona : PersonaRoomDAO = db.getPersonaRoomDAO()
         Persona.forEach{
+            Log.d("Prueba", it.fecha_res )
             val idpost=daoPersona.findById(it.id)
             daoPersona.delete(idpost)
         }
+        val peoplepos=obtenerListaPersonas(context)
+        Log.d("save", "Hay " + peoplepos.size+" datos" )
     }
 
     fun obtenerListaPersonasRoom (context : Context,fecha :String) : List<Persona> {

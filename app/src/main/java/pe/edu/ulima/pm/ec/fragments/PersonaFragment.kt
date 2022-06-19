@@ -20,6 +20,9 @@ class PersonaFragment: Fragment() {
         super.onCreate(savedInstanceState)
         activity?.title = "Ver Data"
         setHasOptionsMenu(true)
+
+
+
     }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,6 +42,11 @@ class PersonaFragment: Fragment() {
         val etFecha= view.findViewById<EditText>(R.id.EtFecha)
         val butBuscar = view.findViewById<Button>(R.id.butBuscar)
 
+        etFecha.setOnClickListener{
+            showDatePickerDialog()
+        }
+
+
 
         butBuscar.setOnClickListener{
             var fecha= etFecha.text.toString()
@@ -53,6 +61,27 @@ class PersonaFragment: Fragment() {
             }
         }
 
+
+
+    }
+
+    private fun showDatePickerDialog() {
+        val datePicker = DatePickerFragment({day,month,year->onDateSelected(day,month+1,year)})
+        datePicker.show(parentFragmentManager,"datePicker")
+    }
+    fun onDateSelected(day:Int,month:Int,year:Int){
+        val etFecha= requireView().findViewById<EditText>(R.id.EtFecha)
+
+
+        if(month<10 && year<10){
+            etFecha.setText("0$year/0$month/$day")
+        }
+        else if(month<10){
+            etFecha.setText("$year/0$month/$day")
+        }
+        else if(year<10){
+            etFecha.setText("0$year/$month/$day")
+        }
 
 
     }
