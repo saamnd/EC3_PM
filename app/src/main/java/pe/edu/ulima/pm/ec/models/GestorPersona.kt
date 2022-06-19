@@ -72,6 +72,25 @@ class GestorPersona {
         Log.d("save", "Se guardó "+cont)
 
     }
+    fun obtenerListaPersonas(context: Context):List<PersonaRoom>{
+        val db = AppDatabase.getInstance(context)
+        val daoPersona : PersonaRoomDAO = db.getPersonaRoomDAO()
+        val listaPersonas = daoPersona.getAll()
+
+
+        return listaPersonas
+    }
+    fun eliminarListaPersonas(context : Context, Persona: List<PersonaRoom>){
+        val db = AppDatabase.getInstance(context)
+        val daoPersona : PersonaRoomDAO = db.getPersonaRoomDAO()
+        Persona.forEach{
+            val idpost=daoPersona.findById(it.id)
+            daoPersona.delete(idpost)
+        }
+
+
+
+    }
 
     fun obtenerListaPersonasRoom (context : Context,fecha :String) : List<Persona> {
         val daoPersona : PersonaRoomDAO = AppDatabase.getInstance(
