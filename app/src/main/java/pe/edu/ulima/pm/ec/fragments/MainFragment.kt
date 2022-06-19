@@ -61,11 +61,5 @@ class MainFragment: Fragment() {
 
         }
     }
-    private fun Limpiar(){
-
-    }
-    private fun butData(){
-
-    }
 
 }
