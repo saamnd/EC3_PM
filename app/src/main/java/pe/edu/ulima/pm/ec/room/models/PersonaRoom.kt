@@ -16,8 +16,8 @@ data class PersonaRoom(
     val provincia : String,
     @ColumnInfo(name = "distrito")
     val distrito : String,
-    @ColumnInfo(name = "metododx")
-    val metododx : String,
-    @PrimaryKey( )
+    @ColumnInfo(name = "id_persona")
+    val id_persona: String,
+    @PrimaryKey( autoGenerate = true)
     val id : Int
 )

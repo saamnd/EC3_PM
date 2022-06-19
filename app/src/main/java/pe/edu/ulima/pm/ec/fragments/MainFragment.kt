@@ -53,11 +53,14 @@ class MainFragment: Fragment() {
 
         }
         val butSinc= view.findViewById<Button>(R.id.butSinc)
+
         butSinc.setOnClickListener{
             //DESACTIVAR BOTON
             butSinc.isEnabled=false
             SincronizarData()
+
         }
+
     }
     @RequiresApi(Build.VERSION_CODES.N)
     private fun SincronizarData(){
@@ -69,8 +72,8 @@ class MainFragment: Fragment() {
             pBar?.incrementProgressBy(1)
             var lista:List<String> = mutableListOf()
             lista= withContext(Dispatchers.IO){
-                GestorPersona().obtenerListaPersonasCorutina(pBar)
-                lista
+                GestorPersona().obtenerListaPersonasCorutina( pBar)
+
                 }
         //Guardar Lista
             GestorPersona().guardarListaPersonasRoom(
@@ -78,8 +81,6 @@ class MainFragment: Fragment() {
                 lista
             )
 
-
-            //DESACTIVAR BIOTON
          }
         }
 
