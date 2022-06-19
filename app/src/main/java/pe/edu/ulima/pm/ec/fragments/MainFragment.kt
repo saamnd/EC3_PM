@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Button
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import pe.edu.ulima.pm.ec.models.GestorPersona
 import kotlinx.coroutines.*
+import pe.edu.ulima.pm.ec.MainActivity
 import pe.edu.ulima.pm.ec.R
 import pe.edu.ulima.pm.ec.models.beans.Persona
 import pe.edu.ulima.pm.ec.room.AppDatabase
@@ -21,10 +23,12 @@ class MainFragment: Fragment() {
 
     private val fragmentPersona = PersonaFragment()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.title = "Dashboard"
         setHasOptionsMenu(true)
+
     }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,16 +54,18 @@ class MainFragment: Fragment() {
             SincronizarData()
         }
     }
+
     private fun SincronizarData(){
         //ObtenerListaPersonas
-        GlobalScope.launch(Dispatchers.Main) {
 
+        var pBar = view?.findViewById<ProgressBar>(R.id.progressBar)
+
+        GlobalScope.launch(Dispatchers.Main) {
+            pBar?.incrementProgressBy(1)
             var lista:List<String> = mutableListOf()
             lista= withContext(Dispatchers.IO){
-                GestorPersona().obtenerListaPersonasCorutina()
-
+                GestorPersona().obtenerListaPersonasCorutina(pBar)
                 }
-
 
             GestorPersona().guardarListaPersonasRoom(
                 requireActivity().applicationContext,

@@ -1,31 +1,44 @@
 package pe.edu.ulima.pm.ec.models
 
 import android.content.Context
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.*
-import pe.edu.ulima.pm.ec.models.beans.Persona
-import android.os.Handler
+import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.ProgressBar
+import kotlinx.coroutines.*
+import pe.edu.ulima.pm.ec.R
+import pe.edu.ulima.pm.ec.fragments.MainFragment
 import pe.edu.ulima.pm.ec.room.*
 import pe.edu.ulima.pm.ec.room.dao.PersonaRoomDAO
 import pe.edu.ulima.pm.ec.room.models.PersonaRoom
 import java.net.HttpURLConnection
 import java.net.URL
 
+
+
 class GestorPersona {
 
-    fun obtenerListaPersonasCorutina() : List<String> {
+    fun obtenerListaPersonasCorutina(pBar: ProgressBar?) : List<String> {
+
         val url = URL("https://files.minsa.gob.pe/s/eRqxR35ZCxrzNgr/download")
         val con = url.openConnection() as HttpURLConnection
 
         var br=con.inputStream.bufferedReader()
+
         val resultado = mutableListOf<String>()
+        var cont=0;
         var data=""
+
         while(br.readLine()!=null){
             data=br.readLine()
             resultado.add(data)
+            cont++
+            if (cont%10000==0){
+            pBar?.incrementProgressBy(1)}
             Log.d("detail", data)
         }
+
 
         return resultado
     }
