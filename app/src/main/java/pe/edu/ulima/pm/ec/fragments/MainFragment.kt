@@ -90,16 +90,14 @@ class MainFragment: Fragment() {
         }
 
     }
-    private fun VerificarBDExiste(activity: MainActivity):Boolean{
-        val sp = activity.getSharedPreferences(Constantes.NOMBRE_SP, Context.MODE_PRIVATE)
-        val username = sp.getString(Constantes.SP_ESTA_SINCRONIZADO, "")!!
-
-        return username != ""
-    }
 
     private fun EliminarData(){
         val ListPersonas = GestorPersona().obtenerListaPersonas(requireActivity().applicationContext)
         GestorPersona().eliminarListaPersonas(requireActivity().applicationContext,ListPersonas)
+        val editor = requireActivity().getSharedPreferences(
+            Constantes.NOMBRE_SP, Context.MODE_PRIVATE).edit()
+        editor.putString(Constantes.SP_ESTA_SINCRONIZADO, "")!!
+        editor.commit()
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
