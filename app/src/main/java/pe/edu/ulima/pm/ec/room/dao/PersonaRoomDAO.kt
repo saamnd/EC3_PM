@@ -17,8 +17,8 @@ interface PersonaRoomDAO {
     @Query("SELECT * FROM PersonaRoom WHERE id=:id")
     fun findById(id : Int) : PersonaRoom
 
-    @Query("SELECT departamento, count(*) as cantidad FROM PersonaRoom WHERE fecha_corte=:fecha_corte GROUP BY DEPARTAMENTO")
-    fun PorDepa(fecha_corte:String) : List<DepartamentoRoom>
+    @Query("SELECT departamento, count(*) as cantidad FROM PersonaRoom WHERE fecha_res=:fecha_res GROUP BY DEPARTAMENTO")
+    fun PorDepa(fecha_res:String) : List<DepartamentoRoom>
 /*
     @Query("SELECT DISTINCT fecha_corte FROM PersonaRoom")
     fun ObtenerFechas(fecha_corte:String) : List<FechasRoom>*/
