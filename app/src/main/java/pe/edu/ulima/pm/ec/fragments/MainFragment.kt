@@ -44,27 +44,31 @@ class MainFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var pBar = view?.findViewById<ProgressBar>(R.id.progressBar)
         val bData= view.findViewById<Button>(R.id.butData)
+        val butSinc= view.findViewById<Button>(R.id.butSinc)
+        val butLimpiar = view.findViewById<Button>(R.id.butLimpiar)
 
         bData.setOnClickListener{
             val ft= this.parentFragmentManager.beginTransaction()
             ft.replace(R.id.fcvFragments, fragmentPersona)
             ft.commit()
-
+            pBar?.visibility = View.INVISIBLE
         }
-        val butSinc= view.findViewById<Button>(R.id.butSinc)
 
         butSinc.setOnClickListener{
             //DESACTIVAR BOTON
             butSinc.isEnabled=false
+            pBar.visibility = View.VISIBLE
             SincronizarData()
         }
-        val butLimpiar = view.findViewById<Button>(R.id.butLimpiar)
+
         butLimpiar.setOnClickListener {
-            var pBar = view?.findViewById<ProgressBar>(R.id.progressBar)
+
             EliminarData()
 
             pBar?.setProgress(0)
+            pBar?.visibility = View.INVISIBLE
             butSinc.isEnabled=true
 
 
@@ -93,8 +97,8 @@ class MainFragment: Fragment() {
                 requireActivity().applicationContext,
                 lista
             )
-
          }
+
         }
 
 

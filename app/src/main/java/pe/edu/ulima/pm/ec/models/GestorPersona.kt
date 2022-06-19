@@ -28,7 +28,7 @@ class GestorPersona {
         var data=""
 
         //while(br.readLine()!=null){
-        while(cont<500){
+        while(cont<50){
             data=br.readLine()
             resultado.add(data)
             cont++
@@ -38,6 +38,7 @@ class GestorPersona {
 
         }
         pBar?.setProgress(100, true)
+
         return resultado
     }
 
