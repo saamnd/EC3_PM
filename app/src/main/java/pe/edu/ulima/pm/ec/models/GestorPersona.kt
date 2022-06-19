@@ -80,7 +80,7 @@ class GestorPersona {
         val listaPersonasRoom = daoPersona.PorDepa(fecha_ej) // consulta Room
         println(listaPersonasRoom.size)
         val listaPlanetas = listaPersonasRoom.map {
-            Persona(it.departamento, it.cantidad,fecha_ej)
+            Persona(fecha_ej,it.cantidad,it.departamento)
         }
         return listaPlanetas
     }
