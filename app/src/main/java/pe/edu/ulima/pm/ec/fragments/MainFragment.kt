@@ -64,7 +64,7 @@ class MainFragment: Fragment() {
             var pBar = view?.findViewById<ProgressBar>(R.id.progressBar)
             EliminarData()
 
-            pBar?.incrementProgressBy(0)
+            pBar?.setProgress(0)
             butSinc.isEnabled=true
 
 
