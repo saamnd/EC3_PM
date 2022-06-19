@@ -1,6 +1,7 @@
 package pe.edu.ulima.pm.ec.models
 
 import android.content.Context
+import android.os.Build
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.*
 import pe.edu.ulima.pm.ec.models.beans.Persona
@@ -10,6 +11,7 @@ import pe.edu.ulima.pm.ec.Constantes
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
+import androidx.annotation.RequiresApi
 import kotlinx.coroutines.*
 import pe.edu.ulima.pm.ec.R
 import pe.edu.ulima.pm.ec.fragments.MainFragment
@@ -22,6 +24,7 @@ import java.text.SimpleDateFormat
 
 class GestorPersona {
 
+    @RequiresApi(Build.VERSION_CODES.N)
     fun obtenerListaPersonasCorutina(pBar: ProgressBar?) : List<String> {
 
         val url = URL("https://files.minsa.gob.pe/s/eRqxR35ZCxrzNgr/download")
@@ -35,15 +38,17 @@ class GestorPersona {
             data=br.readLine()
             resultado.add(data)
             cont++
-            if (cont%10000==0){
-            pBar?.incrementProgressBy(1)}
-            Log.d("detail", data)
-        }
+            if (cont%20000==0){
+            pBar?.incrementProgressBy(1)
+                Log.d("detail", data)}
 
+        }
+        pBar?.setProgress(100, true)
         return resultado
     }
 
     fun guardarListaPersonasRoom(context : Context, persona : List<String>) {
+        var cont=0
         val db = AppDatabase.getInstance(
             context)
         val daoPersona : PersonaRoomDAO = db.getPersonaRoomDAO()
@@ -56,8 +61,10 @@ class GestorPersona {
                     persona[2],
                     persona[3],
                     persona[4],
-                    persona[5].toInt())
+                    persona[9].toInt())
             )
+            cont++
+            Log.d("aaa", cont.toString())
 
         }
 
@@ -65,7 +72,7 @@ class GestorPersona {
         editor.putString(Constantes.SP_ESTA_SINCRONIZADO, "SINCRONIZADO")
         editor.commit()
 
-
+        Log.d("aaa", cont.toString())
         Log.d("save", "Se guardó")
 
     }

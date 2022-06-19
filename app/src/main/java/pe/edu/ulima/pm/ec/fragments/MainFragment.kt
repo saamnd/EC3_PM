@@ -2,11 +2,13 @@ package pe.edu.ulima.pm.ec.fragments
 
 import android.app.Person
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.ProgressBar
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import pe.edu.ulima.pm.ec.models.GestorPersona
@@ -38,6 +40,7 @@ class MainFragment: Fragment() {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -56,6 +59,7 @@ class MainFragment: Fragment() {
             SincronizarData()
         }
     }
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun SincronizarData(){
         //ObtenerListaPersonas
 
@@ -65,9 +69,8 @@ class MainFragment: Fragment() {
             pBar?.incrementProgressBy(1)
             var lista:List<String> = mutableListOf()
             lista= withContext(Dispatchers.IO){
-                GestorPersona().obtenerListaPersonasCorutina()
-                lista
                 GestorPersona().obtenerListaPersonasCorutina(pBar)
+                lista
                 }
         //Guardar Lista
             GestorPersona().guardarListaPersonasRoom(
