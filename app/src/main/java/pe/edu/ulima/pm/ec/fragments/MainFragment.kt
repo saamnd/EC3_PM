@@ -32,9 +32,9 @@ class MainFragment: Fragment() {
         val bData= view.findViewById<Button>(R.id.butData)
 
         bData.setOnClickListener{
-            val fm= this.parentFragmentManager.beginTransaction()
-            fm.replace(R.id.fcvFragments, fragmentPersona)
-            fm.commit()
+            val ft= this.parentFragmentManager.beginTransaction()
+            ft.replace(R.id.fcvFragments, fragmentPersona)
+            ft.commit()
 
         }
     }

@@ -11,8 +11,6 @@ class MainActivity : AppCompatActivity() {
     private val fragmentMain = MainFragment()
     private val fragmentPersona = PersonaFragment()
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -23,8 +21,6 @@ class MainActivity : AppCompatActivity() {
         ft.commit()
 
         val bData = findViewById<Button>(R.id.butData)
-
-
 
     }
 }
