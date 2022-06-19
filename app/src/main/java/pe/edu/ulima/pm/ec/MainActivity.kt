@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
     private val fragmentMain = MainFragment()
     private val fragmentPersona = PersonaFragment()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -31,11 +30,6 @@ class MainActivity : AppCompatActivity() {
         val ft = supportFragmentManager.beginTransaction()
         ft.add(R.id.fcvFragments, fragmentMain)
         ft.commit()
-
-
-
-
-
     }
 
     override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
