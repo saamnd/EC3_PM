@@ -50,6 +50,21 @@ class MainFragment: Fragment() {
         val butSinc= view.findViewById<Button>(R.id.butSinc)
         val butLimpiar = view.findViewById<Button>(R.id.butLimpiar)
 
+        val sp = requireActivity().getSharedPreferences(
+            Constantes.NOMBRE_SP, Context.MODE_PRIVATE)
+        val estaSincronizado = sp.getString(Constantes.SP_ESTA_SINCRONIZADO, "")!!
+        ///Setear Botones
+        if (estaSincronizado!=""){
+            butSinc.isEnabled=false
+            butLimpiar.isEnabled=true
+        }
+        else{
+            butSinc.isEnabled=true
+            butLimpiar.isEnabled=false
+        }
+
+
+
         bData.setOnClickListener{
             val ft= this.parentFragmentManager.beginTransaction()
             ft.replace(R.id.fcvFragments, fragmentPersona)
@@ -58,6 +73,7 @@ class MainFragment: Fragment() {
 
         butSinc.setOnClickListener{
             butSinc.isEnabled=false
+            butLimpiar.isEnabled=true
             pBar.visibility = View.VISIBLE
             SincronizarData()
         }
@@ -69,10 +85,18 @@ class MainFragment: Fragment() {
             pBar?.setProgress(0)
             pBar?.visibility = View.INVISIBLE
             butSinc.isEnabled=true
+            butLimpiar.isEnabled=false
 
         }
 
     }
+    private fun VerificarBDExiste(activity: MainActivity):Boolean{
+        val sp = activity.getSharedPreferences(Constantes.NOMBRE_SP, Context.MODE_PRIVATE)
+        val username = sp.getString(Constantes.SP_ESTA_SINCRONIZADO, "")!!
+
+        return username != ""
+    }
+
     private fun EliminarData(){
         val ListPersonas = GestorPersona().obtenerListaPersonas(requireActivity().applicationContext)
         GestorPersona().eliminarListaPersonas(requireActivity().applicationContext,ListPersonas)
