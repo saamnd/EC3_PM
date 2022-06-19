@@ -38,7 +38,6 @@ class GestorPersona {
 
         }
         pBar?.setProgress(100, true)
-
         return resultado
     }
 
