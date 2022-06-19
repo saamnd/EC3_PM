@@ -54,8 +54,9 @@ class MainFragment: Fragment() {
             withContext(Dispatchers.IO){
                 var br=con.inputStream.bufferedReader()
                 while(br.readLine()!=null){
-                    datas=con.inputStream.bufferedReader().readLine()
-                    Log.d("Detail_Carga",datas)
+                    datas=br.readLine()
+                    var result = datas.split(";").map { it.trim() }
+
                 }
                 Log.d("Detail_Carga",datas)}
 
