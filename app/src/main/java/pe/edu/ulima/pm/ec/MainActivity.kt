@@ -2,9 +2,16 @@ package pe.edu.ulima.pm.ec
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import pe.edu.ulima.pm.ec.fragments.*
+import java.net.HttpURLConnection
+import java.net.URL
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,5 +33,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
     }
+
 }
