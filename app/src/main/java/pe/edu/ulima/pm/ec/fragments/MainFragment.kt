@@ -72,8 +72,7 @@ class MainFragment: Fragment() {
             pBar?.incrementProgressBy(1)
             var lista:List<String> = mutableListOf()
             lista= withContext(Dispatchers.IO){
-                GestorPersona().obtenerListaPersonasCorutina( pBar)
-
+                GestorPersona().obtenerListaPersonasCorutina(pBar)
                 }
         //Guardar Lista
             GestorPersona().guardarListaPersonasRoom(

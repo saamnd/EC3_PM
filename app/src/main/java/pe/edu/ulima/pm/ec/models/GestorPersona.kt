@@ -25,7 +25,6 @@ import java.net.URL
 import java.text.SimpleDateFormat
 
 class GestorPersona {
-
     @RequiresApi(Build.VERSION_CODES.N)
     fun obtenerListaPersonasCorutina(pBar: ProgressBar?) : List<String> {
 
@@ -36,7 +35,8 @@ class GestorPersona {
         val resultado = mutableListOf<String>()
         var cont=0;
         var data=""
-        while(br.readLine()!=null){
+        while(cont<500){
+        //while(br.readLine()!=null){
             data=br.readLine()
             resultado.add(data)
             cont++
