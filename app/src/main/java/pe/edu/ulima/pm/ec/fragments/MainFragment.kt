@@ -1,6 +1,7 @@
 package pe.edu.ulima.pm.ec.fragments
 
 import android.app.Person
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import pe.edu.ulima.pm.ec.models.GestorPersona
 import kotlinx.coroutines.*
+import pe.edu.ulima.pm.ec.Constantes
 import pe.edu.ulima.pm.ec.R
 import pe.edu.ulima.pm.ec.models.beans.Persona
 import pe.edu.ulima.pm.ec.room.AppDatabase
@@ -37,8 +39,11 @@ class MainFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val bData= view.findViewById<Button>(R.id.butData)
 
+
+
+
+        val bData= view.findViewById<Button>(R.id.butData)
         bData.setOnClickListener{
             val ft= this.parentFragmentManager.beginTransaction()
             ft.replace(R.id.fcvFragments, fragmentPersona)
@@ -46,10 +51,17 @@ class MainFragment: Fragment() {
 
         }
         val butSinc= view.findViewById<Button>(R.id.butSinc)
+
         butSinc.setOnClickListener{
+            //DESACTIVAR BOTON
+            butSinc.isEnabled=false
             SincronizarData()
+
         }
+
     }
+
+
     private fun SincronizarData(){
         //ObtenerListaPersonas
         GlobalScope.launch(Dispatchers.Main) {
@@ -57,17 +69,14 @@ class MainFragment: Fragment() {
             var lista:List<String> = mutableListOf()
             lista= withContext(Dispatchers.IO){
                 GestorPersona().obtenerListaPersonasCorutina()
-
+                lista
                 }
-
-
+        //Guardar Lista
             GestorPersona().guardarListaPersonasRoom(
                 requireActivity().applicationContext,
                 lista
             )
 
-
-            //DESACTIVAR BIOTON
          }
         }
 
