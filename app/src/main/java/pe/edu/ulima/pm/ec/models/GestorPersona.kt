@@ -5,9 +5,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.*
 import pe.edu.ulima.pm.ec.models.beans.Persona
 import android.os.Handler
-import pe.edu.ulima.pm.swapp.room.AppDatabase
-import pe.edu.ulima.pm.swapp.room.dao.PersonaRoomDAO
-import pe.edu.ulima.pm.swapp.room.models.PersonaRoom
+import pe.edu.ulima.pm.ec.room.*
+import pe.edu.ulima.pm.ec.room.dao.PersonaRoomDAO
+import pe.edu.ulima.pm.ec.room.models.PersonaRoom
 
 class GestorPersona {
 
