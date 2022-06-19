@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
     private val fragmentMain = MainFragment()
     private val fragmentPersona = PersonaFragment()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
