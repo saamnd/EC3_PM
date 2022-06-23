@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -30,15 +32,11 @@ class MainActivity : AppCompatActivity() {
 
         val ft = supportFragmentManager.beginTransaction()
         ft.add(R.id.fcvFragments, fragmentMain)
-        ft.addToBackStack(null)
         ft.commit()
 
     }
-    private fun VerificarBDExiste():Boolean{
-        val sp = getSharedPreferences(Constantes.NOMBRE_SP, Context.MODE_PRIVATE)
-        val sinc = sp.getString(Constantes.SP_ESTA_SINCRONIZADO, "")!!
-
-        return sinc != ""
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 
 }

@@ -90,4 +90,5 @@ class PersonaFragment: Fragment() {
         val adapter = ListadoPersonasAdapter(lista)
         mRviPersonas.adapter = adapter
     }
+
 }

@@ -17,7 +17,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor
 
 class GestorPersona {
     val filas: Int =10000
-    val aumentar: Int= 72000//filas/200
+    val aumentar: Int= filas/50//72000//
     fun obtenerListaPersonasCorutina(pBar: ProgressBar?) : List<String> {
 
         val url = URL("https://files.minsa.gob.pe/s/eRqxR35ZCxrzNgr/download")
@@ -29,8 +29,8 @@ class GestorPersona {
         var data: String? = null
         var tito=true
 
-        while(tito){//AFHS
-        //while(cont<filas){
+        //while(tito){
+        while(cont<filas){
             data = br.readLine()
             if (data==null) {
                 tito=false
@@ -40,7 +40,7 @@ class GestorPersona {
                 //Log.d("LLEGAMOS ACA", data!!)
                 cont++
                 if (cont % aumentar == 0) {
-                    Log.d("datoCorutina",cont.toString()+"%")
+                    Log.d("datoCorutina",cont.toString())
                     pBar?.incrementProgressBy(1)
                 }
             }
