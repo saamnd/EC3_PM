@@ -114,9 +114,10 @@ class MainFragment: Fragment() {
                 GestorPersona().obtenerListaPersonasCorutina(pBar)
                 }
         //Guardar Lista
+            withContext(Dispatchers.IO){
             GestorPersona().guardarListaPersonasRoom(
                 requireActivity().applicationContext,
-                lista, pBar)
+                lista, pBar)}
 
             Toast.makeText(getActivity(),"Listo!",Toast.LENGTH_SHORT).show()
 

@@ -13,6 +13,7 @@ import pe.edu.ulima.pm.ec.room.dao.PersonaRoomDAO
 import pe.edu.ulima.pm.ec.room.models.PersonaRoom
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.concurrent.ScheduledThreadPoolExecutor
 
 class GestorPersona {
 
@@ -24,19 +25,24 @@ class GestorPersona {
         var br=con.inputStream.bufferedReader()
         val resultado = mutableListOf<String>()
         var cont=0;
-        var data=""
+        var data: String? = null
+        var tito=true//11:54-11:58
 
-        //while(br.readLine()!=null){
-        while(cont<400){
-            data=br.readLine()
-            resultado.add(data)
-            cont++
-            if (cont%40000==0){
-            pBar?.incrementProgressBy(1)
+        while(tito){//AFHS
+        //while(cont<400){
+            data = br.readLine()
+            if (data==null) {
+                tito=false
+            }
+            else {
+                resultado.add(data)
+                cont++
+                if (cont % 40000 == 0) {
+                    pBar?.incrementProgressBy(1)
                 }
-
+            }
         }
-        Log.d("detail", data)
+        Log.d("LLEGAMOS ACA", "LLEGAMOS ACA")
         return resultado
     }
 
