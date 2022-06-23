@@ -59,10 +59,10 @@ class GestorPersona {
             var result= it.split(";").map{it.trim()}
             cont++
             if (result[7].length!=0) { //Hay algunos valores vacios
-                var fecha = result[7]//.substring(6, 8) + "/" + result[7].substring( 4,6) + "/" + result[7].substring(0, 4)
+                //var fecha = result[7]//.substring(6, 8) + "/" + result[7].substring( 4,6) + "/" + result[7].substring(0, 4)
                 daoPersona.insert(
                     PersonaRoom(
-                        fecha,
+                        result[7],
                         result[1],
                         result[2],
                         result[3],
