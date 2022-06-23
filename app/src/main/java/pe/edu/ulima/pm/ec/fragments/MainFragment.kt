@@ -69,6 +69,7 @@ class MainFragment: Fragment() {
         bData.setOnClickListener{
             val ft= this.parentFragmentManager.beginTransaction()
             ft.replace(R.id.fcvFragments, fragmentPersona)
+            ft.addToBackStack(null)
             ft.commit()
         }
 

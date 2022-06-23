@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         val ft = supportFragmentManager.beginTransaction()
         ft.add(R.id.fcvFragments, fragmentMain)
+        ft.addToBackStack(null)
         ft.commit()
 
     }

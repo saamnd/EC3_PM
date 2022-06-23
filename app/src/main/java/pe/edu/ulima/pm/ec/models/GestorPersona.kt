@@ -16,7 +16,8 @@ import java.net.URL
 import java.util.concurrent.ScheduledThreadPoolExecutor
 
 class GestorPersona {
-
+    val filas: Int =10000
+    val aumentar: Int= filas/200
     fun obtenerListaPersonasCorutina(pBar: ProgressBar?) : List<String> {
 
         val url = URL("https://files.minsa.gob.pe/s/eRqxR35ZCxrzNgr/download")
@@ -28,8 +29,8 @@ class GestorPersona {
         var data: String? = null
         var tito=true//11:54-11:58
 
-        while(tito){//AFHS
-        //while(cont<400){
+        //while(tito){//AFHS
+        while(cont<filas){
             data = br.readLine()
             if (data==null) {
                 tito=false
@@ -38,7 +39,8 @@ class GestorPersona {
                 resultado.add(data)
                 //Log.d("LLEGAMOS ACA", data!!)
                 cont++
-                if (cont % 40000 == 0) {
+                if (cont % aumentar == 0) {
+                    Log.d("valor",cont.toString())
                     pBar?.incrementProgressBy(1)
                 }
             }
@@ -71,7 +73,7 @@ class GestorPersona {
                 )
                 Log.d("SQLITE","SE GUARDO "+cont)
             }
-            if(cont%40000==0){
+            if(cont%aumentar==0){
                 pBar?.incrementProgressBy(1)
             }
         }

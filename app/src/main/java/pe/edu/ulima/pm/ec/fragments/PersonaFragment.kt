@@ -32,6 +32,7 @@ class PersonaFragment: Fragment() {
         return inflater.inflate(R.layout.fragment_personas, container, false)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //Si no existe la BD
