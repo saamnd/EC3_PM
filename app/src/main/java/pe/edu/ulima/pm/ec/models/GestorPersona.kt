@@ -17,7 +17,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor
 
 class GestorPersona {
     val filas: Int =10000
-    val aumentar: Int= filas/200
+    val aumentar: Int= 72000//filas/200
     fun obtenerListaPersonasCorutina(pBar: ProgressBar?) : List<String> {
 
         val url = URL("https://files.minsa.gob.pe/s/eRqxR35ZCxrzNgr/download")
@@ -27,10 +27,10 @@ class GestorPersona {
         val resultado = mutableListOf<String>()
         var cont=0;
         var data: String? = null
-        var tito=true//11:54-11:58
+        var tito=true
 
-        //while(tito){//AFHS
-        while(cont<filas){
+        while(tito){//AFHS
+        //while(cont<filas){
             data = br.readLine()
             if (data==null) {
                 tito=false
@@ -40,28 +40,26 @@ class GestorPersona {
                 //Log.d("LLEGAMOS ACA", data!!)
                 cont++
                 if (cont % aumentar == 0) {
-                    Log.d("valor",cont.toString())
+                    Log.d("datoCorutina",cont.toString()+"%")
                     pBar?.incrementProgressBy(1)
                 }
             }
         }
-        Log.d("LLEGAMOS ACA", cont.toString())
+        Log.d("datoCorutina", cont.toString())
         return resultado
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
     fun guardarListaPersonasRoom(context : Context, persona : List<String>, pBar: ProgressBar?) {
-        val db = AppDatabase.getInstance(
-            context)
+        val db = AppDatabase.getInstance(context)
         val daoPersona : PersonaRoomDAO = db.getPersonaRoomDAO()
-        Log.d("save", "Se va a guardar")
-
         var cont=0
+
+        Log.d("guardarRoom", "Empieza guardado")
         persona.forEach {
             var result= it.split(";").map{it.trim()}
             cont++
             if (result[7].length!=0) { //Hay algunos valores vacios
-                //var fecha = result[7]//.substring(6, 8) + "/" + result[7].substring( 4,6) + "/" + result[7].substring(0, 4)
                 daoPersona.insert(
                     PersonaRoom(
                         result[7],
@@ -77,14 +75,12 @@ class GestorPersona {
                 pBar?.incrementProgressBy(1)
             }
         }
-
-        pBar?.setProgress(100, true)
-
         val editor = context.getSharedPreferences(Constantes.NOMBRE_SP, Context.MODE_PRIVATE).edit()
         editor.putString(Constantes.SP_ESTA_SINCRONIZADO, "SINCRONIZADO")
         editor.commit()
 
-        Log.d("save", "Se guardó "+cont)
+        pBar?.setProgress(100, true)
+        Log.d("guardarRoom", "Terminó guardado "+cont)
 
     }
     fun obtenerListaPersonas(context: Context):List<PersonaRoom>{
@@ -104,7 +100,7 @@ class GestorPersona {
             daoPersona.delete(idpost)
         }
         val peoplepos=obtenerListaPersonas(context)
-        Log.d("save", "Hay " + peoplepos.size+" datos" )
+        Log.d("eliminar", "Hay " + peoplepos.size+" datos" )
     }
 
     fun obtenerListaPersonasRoom (context : Context,fecha :String) : List<Persona> {

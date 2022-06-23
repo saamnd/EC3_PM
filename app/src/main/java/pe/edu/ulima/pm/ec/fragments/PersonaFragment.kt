@@ -9,10 +9,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import pe.edu.ulima.pm.ec.models.GestorPersona
-import kotlinx.coroutines.*
 import pe.edu.ulima.pm.ec.R
 import pe.edu.ulima.pm.ec.adapters.ListadoPersonasAdapter
 import pe.edu.ulima.pm.ec.models.beans.Persona
+import java.lang.Exception
 
 class PersonaFragment: Fragment() {
     private lateinit var mRviPersonas : RecyclerView
@@ -47,25 +47,24 @@ class PersonaFragment: Fragment() {
             showDatePickerDialog()
         }
 
-
-
         butBuscar.setOnClickListener{
-            var fecha= etFecha.text.toString() //DD/MM/AAAA
-            //AAAAMMDD
-            var fecha_sql= fecha.substring(6, 10) + fecha.substring( 3,5) + fecha.substring(0, 2)
+            try{
+            val fecha= etFecha.text.toString() //DD/MM/AAAA
+            val fecha_sql= fecha.substring(6, 10) + fecha.substring( 3,5) + fecha.substring(0, 2)//AAAAMMDD
             Log.i("fecha",fecha_sql+"   -    "+fecha)
+
             var lista : List<Persona> = mutableListOf()
             lista = GestorPersona().obtenerListaPersonasRoom(
                 requireContext().applicationContext, fecha_sql)
+
             if(lista.isNotEmpty()){
             cargarListaDepartamentos(lista)}
-            else{
-                Toast.makeText(getActivity(),"No se encontraron datos", Toast.LENGTH_SHORT).show()
+            else{Toast.makeText(getActivity(),"No se encontraron datos", Toast.LENGTH_SHORT).show()}
+            }
+            catch (e: Exception){
+            Toast.makeText(getActivity(),"No se encontraron datos", Toast.LENGTH_SHORT).show()
             }
         }
-
-
-
     }
 
     private fun showDatePickerDialog() {
