@@ -4,9 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import pe.edu.ulima.pm.ec.models.beans.Persona
 import pe.edu.ulima.pm.ec.room.models.DepartamentoRoom
-import pe.edu.ulima.pm.ec.room.models.FechasRoom
 import pe.edu.ulima.pm.ec.room.models.PersonaRoom
 
 @Dao

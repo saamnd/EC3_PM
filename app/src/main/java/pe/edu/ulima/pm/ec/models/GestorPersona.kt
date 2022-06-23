@@ -36,13 +36,14 @@ class GestorPersona {
             }
             else {
                 resultado.add(data)
+                //Log.d("LLEGAMOS ACA", data!!)
                 cont++
                 if (cont % 40000 == 0) {
                     pBar?.incrementProgressBy(1)
                 }
             }
         }
-        Log.d("LLEGAMOS ACA", "LLEGAMOS ACA")
+        Log.d("LLEGAMOS ACA", cont.toString())
         return resultado
     }
 
@@ -58,7 +59,7 @@ class GestorPersona {
             var result= it.split(";").map{it.trim()}
             cont++
             if (result[7].length!=0) { //Hay algunos valores vacios
-                var fecha = result[7].substring(6, 8) + "/" + result[7].substring( 4,6) + "/" + result[7].substring(0, 4)
+                var fecha = result[7]//.substring(6, 8) + "/" + result[7].substring( 4,6) + "/" + result[7].substring(0, 4)
                 daoPersona.insert(
                     PersonaRoom(
                         fecha,
@@ -68,8 +69,9 @@ class GestorPersona {
                         result[9], 0
                     )
                 )
+                Log.d("SQLITE","SE GUARDO "+cont)
             }
-            if(cont%1000==0){
+            if(cont%40000==0){
                 pBar?.incrementProgressBy(1)
             }
         }

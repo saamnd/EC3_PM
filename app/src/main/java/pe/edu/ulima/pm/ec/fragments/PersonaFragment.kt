@@ -49,11 +49,13 @@ class PersonaFragment: Fragment() {
 
 
         butBuscar.setOnClickListener{
-            var fecha= etFecha.text.toString()
-            Log.i("fecha",fecha)
+            var fecha= etFecha.text.toString() //DD/MM/AAAA
+            //AAAAMMDD
+            var fecha_sql= fecha.substring(6, 10) + fecha.substring( 3,5) + fecha.substring(0, 2)
+            Log.i("fecha",fecha_sql+"   -    "+fecha)
             var lista : List<Persona> = mutableListOf()
             lista = GestorPersona().obtenerListaPersonasRoom(
-                requireContext().applicationContext, fecha)
+                requireContext().applicationContext, fecha_sql)
             if(lista.isNotEmpty()){
             cargarListaDepartamentos(lista)}
             else{
@@ -72,7 +74,6 @@ class PersonaFragment: Fragment() {
     fun onDateSelected(day:Int,month:Int,year:Int){
         val etFecha= requireView().findViewById<EditText>(R.id.EtFecha)
 
-
         if(month<10 && year<10){
             etFecha.setText("0$year/0$month/$day")
         }
@@ -82,7 +83,6 @@ class PersonaFragment: Fragment() {
         else if(year<10){
             etFecha.setText("0$year/$month/$day")
         }
-
 
     }
 
